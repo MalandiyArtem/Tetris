@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'blue'
   ];
 
+  const audio = document.querySelector('#music');
+
   //The Tetrominoes
   const lTetromino = [
     [1, width+1, width*2+1, 2],
@@ -211,10 +213,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // add functionality to the button
   startBtn.addEventListener('click', () => {
+    audio.volume = 0.1;
+    audio.setAttribute("loop", "loop");
+    audio.play();
+
     if(timerId){
+      audio.pause();
       clearInterval(timerId);
       timerId = null;
     }else{
+      audio.play();
       draw();
       timerId = setInterval(moveDown, 500);
       nextRandom = Math.floor(Math.random() * theTetrominoes.length);
@@ -248,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(current.some(index => squares[currentPosition + index].classList.contains('taken'))){
       scoreDisplay.innerHTML = 'end';
       clearInterval(timerId);
+      audio.pause();
     }
   }
 
