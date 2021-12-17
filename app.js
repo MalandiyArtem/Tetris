@@ -207,10 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // display the shape in the mini-grid display
   function displayShape(){
     // remove any trace of a tetrominp from the entire grid
-    displaySquares.forEach(square => {
-      square.classList.remove('tetromino');
-      square.style.backgroundColor = '';
-    });
+    clearDisplayNextTetromino();
+
     upNextTetrominoes[nextRandom].forEach(index => {
       displaySquares[displayIndex + index].classList.add('tetromino');
       displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom];
@@ -282,6 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
     currentPosition = 4;
     timerId = null;
     isPlaying = false;
+    clearSaveZone();
+    clearDisplayNextTetromino();
   }
 
   // reset gameOver
@@ -297,7 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
         square.classList.remove('tetromino');
       }
     });
-
     displaySquares.forEach(miniSquare => {
       miniSquare.style.backgroundColor = "";
       miniSquare.classList.remove('taken');
@@ -337,10 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nextRandom = savedRandom;
 
       // change next tetromino to Saved
-      displaySquares.forEach(square => {
-        square.classList.remove('tetromino');
-        square.style.backgroundColor = '';
-      });
+      clearDisplayNextTetromino();
 
       displaySavedSquares.forEach((item, index) => {
         if(item.classList.contains('tetromino')){
@@ -348,12 +344,21 @@ document.addEventListener('DOMContentLoaded', () => {
           displaySquares[displayIndex + index].style.backgroundColor = item.style.backgroundColor;
         }
       })
-
-      // clear savezone
-      displaySavedSquares.forEach(square => {
-        square.classList.remove('tetromino');
-        square.style.backgroundColor = '';
-      });
+      clearSaveZone();
     }
+  }
+
+  function clearSaveZone(){
+    displaySavedSquares.forEach(square => {
+      square.classList.remove('tetromino');
+      square.style.backgroundColor = '';
+    });
+  }
+
+  function clearDisplayNextTetromino(){
+    displaySquares.forEach(square => {
+      square.classList.remove('tetromino');
+      square.style.backgroundColor = '';
+    });
   }
 });
