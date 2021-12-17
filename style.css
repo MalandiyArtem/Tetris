@@ -1,63 +1,148 @@
 *{
   margin: 0;
   padding: 0;
+  font-family: Arial;
 }
 
- .grid {
-  width: 200px;
-  height: 400px;
+body{
+  background: #e0ff9c;
+}
+
+.displayScore{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 36px;
+}
+
+
+
+
+ /* Control */
+
+.control{
+  text-align: center;
+  padding: 45px 0;
+}
+
+.control > button, select{
+  cursor: pointer;
+  padding: 10px 14px;
+  margin: 0 10px;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid #cfd4d3;
+  background-color: #e8eded;
+  font-size: 16px;
+}
+
+.control > button:hover, select:hover{
+    background-color: #b0b5b5;
+}
+
+
+
+
+
+
+ /* Game Window */
+ .container{
+   display: flex;
+   justify-content: center;
+ }
+
+ .container .gameWindow{
+   width: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-end;
+ }
+
+
+  .grid {
+   width: 200px;
+   height: 400px;
+   display: flex;
+   flex-wrap: wrap;
+   border: 1px solid #787878;
+ }
+
+  .grid div {
+   height: 20px;
+   width: 20px;
+ }
+
+ .tetromino {
+   box-shadow: 0 0 5 0 rgba(0, 0, 0, 0.2) inset;
+ }
+
+ .mini{
+   display: flex;
+   flex-direction: column;
+ }
+
+ .mini .mini-grid{
+   margin-left: 92px;
+   margin-top: 15px;
+   width: 80px;
+   height: 80px;
+   display: flex;
+   flex-wrap: wrap;
+ }
+
+ .mini .mini-grid div{
+   height: 20px;
+   width: 20px;
+ }
+
+ .mini h3{
+   margin-left: 50px;
+   margin-top: 50px;
+ }
+
+ .mini .save-grid{
+   margin-left: 92px;
+   margin-top: 15px;
+   width: 80px;
+   height: 80px;
+   display: flex;
+   flex-wrap: wrap;
+ }
+
+ .mini .save-grid div{
+   height: 20px;
+   width: 20px;
+ }
+
+
+ /* Rules */
+.container .rules{
+  width: 100%;
+  align-self: center;
   display: flex;
-  flex-wrap: wrap;
-  background-color: yellow;
+  justify-content: center;
 }
 
- .grid div {
-  height: 20px;
-  width: 20px;
+.container .rules ul{
+  list-style: none;
 }
 
-.container{
-  display: flex;
+.container .rules ul li{
+  padding-top: 10px;
+  font-size: 20px;
 }
 
-.tetromino {
-  background-color: blue;
+.container .rules ul li::before{
+  content: "-  ";
 }
 
-.mini{
-  display: flex;
-  flex-direction: column;
+ /* Link */
+.link{
+  text-align: center;
+  margin-top: 90px;
+  font-size: 40px;
+  font-weight: bold;
 }
 
-.mini .mini-grid{
-  margin-left: 50px;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: yellow;
-}
-
-.mini .mini-grid div{
-  height: 20px;
-  width: 20px;
-}
-
-.mini h3{
-  margin-left: 50px;
-  margin-top: 50px;
-}
-
-.mini .save-grid{
-  margin-left: 50px;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: yellow;
-}
-
-.mini .save-grid div{
-  height: 20px;
-  width: 20px;
+.link a{
+  color: #616161;
 }

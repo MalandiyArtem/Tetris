@@ -11,12 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let score = 0;
   let isPlaying = false;
   const colors = [
-    'orange',
-    'red',
-    'purple',
-    'green',
-    'blue'
+    '#ffa762', //orange
+    '#ec643e', // red
+    '#c33eec', // purple
+    '#8dff9b', // green
+    '#3eafec' // blue
   ];
+
   const speedLevel = document.querySelector('#speed');
 
   const audio = document.querySelector('#music');
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // assign functions to keyCodes
   function control(e){
+    e.preventDefault();
     if(isPlaying){
       if(e.which === 37){
         moveLeft();
