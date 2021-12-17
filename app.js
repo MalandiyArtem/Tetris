@@ -3,10 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let squares = Array.from(document.querySelectorAll('.grid div'));
   const scoreDisplay = document.querySelector('#score');
   const startBtn = document.querySelector('#start-button');
+  const resetBtn = document.querySelector('#reset-button');
   const width = 10;
   let nextRandom = 0;
   let timerId;
   let score = 0;
+  let isPlaying = false;
   const colors = [
     'orange',
     'red',
@@ -82,14 +84,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // assign functions to keyCodes
   function control(e){
-    if(e.which === 37){
-      moveLeft();
-    }else if(e.which === 38){
-      rotate();
-    }else if(e.which === 39){
-      moveRight();
-    }else if(e.which === 40){
-      moveDown();
+    if(isPlaying){
+      if(e.which === 37){
+        moveLeft();
+      }else if(e.which === 38){
+        rotate();
+      }else if(e.which === 39){
+        moveRight();
+      }else if(e.which === 40){
+        moveDown();
+      }
     }
   }
   document.addEventListener('keyup', event => {
@@ -214,9 +218,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // add functionality to the button
   startBtn.addEventListener('click', () => {
+    play();
+  });
+
+  function play(){
     audio.volume = 0.1;
     audio.setAttribute("loop", "loop");
     audio.play();
+    isPlaying = true;
 
     let isAvaliable = speedLevel.getAttribute('disabled');
     speedLevel.setAttribute("disabled", !isAvaliable);
@@ -232,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nextRandom = Math.floor(Math.random() * theTetrominoes.length);
       displayShape();
     }
-  });
+  }
 
  // add score
  function addScore(){
@@ -258,11 +267,42 @@ document.addEventListener('DOMContentLoaded', () => {
   // game over
   function gameOver(){
     if(current.some(index => squares[currentPosition + index].classList.contains('taken'))){
-      scoreDisplay.innerHTML = 'end';
-      clearInterval(timerId);
-      audio.pause();
+      stopGame();
+      startBtn.setAttribute('disabled', true);
     }
   }
+
+  function stopGame(){
+    speedLevel.removeAttribute("disabled");
+    scoreDisplay.innerHTML = 'end';
+    clearInterval(timerId);
+    audio.pause();
+    audio.currentTime = 0;
+    currentPosition = 4;
+    timerId = null;
+    isPlaying = false;
+  }
+
+  // reset gameOver
+  resetBtn.addEventListener('click', () => {
+    stopGame();
+    scoreDisplay.innerHTML = '0';
+    score = 0;
+    startBtn.removeAttribute('disabled');
+    squares.forEach((square, index) => {
+      if(index < 200){
+        square.style.backgroundColor = "";
+        square.classList.remove('taken');
+        square.classList.remove('tetromino');
+      }
+    });
+
+    displaySquares.forEach(miniSquare => {
+      miniSquare.style.backgroundColor = "";
+      miniSquare.classList.remove('taken');
+      miniSquare.classList.remove('tetromino');
+    });
+  });
 
 
 
