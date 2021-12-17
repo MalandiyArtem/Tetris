@@ -1,3 +1,8 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
  .grid {
   width: 200px;
   height: 400px;
@@ -19,7 +24,12 @@
   background-color: blue;
 }
 
-.mini-grid{
+.mini{
+  display: flex;
+  flex-direction: column;
+}
+
+.mini .mini-grid{
   margin-left: 50px;
   width: 80px;
   height: 80px;
@@ -28,7 +38,26 @@
   background-color: yellow;
 }
 
-.mini-grid div{
+.mini .mini-grid div{
+  height: 20px;
+  width: 20px;
+}
+
+.mini h3{
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+.mini .save-grid{
+  margin-left: 50px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: yellow;
+}
+
+.mini .save-grid div{
   height: 20px;
   width: 20px;
 }

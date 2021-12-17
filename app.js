@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetBtn = document.querySelector('#reset-button');
   const width = 10;
   let nextRandom = 0;
+  let savedRandom;
   let timerId;
   let score = 0;
   let isPlaying = false;
@@ -65,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let random = Math.floor(Math.random()*theTetrominoes.length);
   let current = theTetrominoes[random][currentRotation];
 
-
   // draw the tetromino
   function draw(){
     current.forEach(index => {
@@ -96,8 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-  document.addEventListener('keyup', event => {
+  document.addEventListener('keydown', event => {
     control(event);
+    saveControl(event);
   });
 
   // move down function
@@ -304,19 +305,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Save or apply tetromino
+  function saveControl(e){
+    if(e.which === 83){ // S
+      saveTetromino();
+    }else if(e.which === 68){ // D
+      useSavedTetromino();
+    }
+  }
 
+  const displaySavedSquares = document.querySelectorAll('.save-grid div');
+  let isSaved = false;
 
+  function saveTetromino(){
+    savedRandom = nextRandom;
+    if(!isSaved){
+      isSaved = true;
+      upNextTetrominoes[nextRandom].forEach(index => {
+        displaySavedSquares[displayIndex + index].classList.add('tetromino');
+        displaySavedSquares[displayIndex + index].style.backgroundColor = colors[nextRandom];
+      });
 
+      nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+      displayShape();
+    }
+  }
 
+  function useSavedTetromino(){
+    if(isSaved){
+      isSaved = false;
+      nextRandom = savedRandom;
 
+      // change next tetromino to Saved
+      displaySquares.forEach(square => {
+        square.classList.remove('tetromino');
+        square.style.backgroundColor = '';
+      });
 
+      displaySavedSquares.forEach((item, index) => {
+        if(item.classList.contains('tetromino')){
+          displaySquares[displayIndex + index].classList.add('tetromino');
+          displaySquares[displayIndex + index].style.backgroundColor = item.style.backgroundColor;
+        }
+      })
 
-
-
-
-
-
-
-
-
+      // clear savezone
+      displaySavedSquares.forEach(square => {
+        square.classList.remove('tetromino');
+        square.style.backgroundColor = '';
+      });
+    }
+  }
 });
