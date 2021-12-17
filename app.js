@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'green',
     'blue'
   ];
+  const speedLevel = document.querySelector('#speed');
 
   const audio = document.querySelector('#music');
 
@@ -217,6 +218,9 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.setAttribute("loop", "loop");
     audio.play();
 
+    let isAvaliable = speedLevel.getAttribute('disabled');
+    speedLevel.setAttribute("disabled", !isAvaliable);
+
     if(timerId){
       audio.pause();
       clearInterval(timerId);
@@ -224,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }else{
       audio.play();
       draw();
-      timerId = setInterval(moveDown, 500);
+      timerId = setInterval(moveDown, speedLevel.value);
       nextRandom = Math.floor(Math.random() * theTetrominoes.length);
       displayShape();
     }
