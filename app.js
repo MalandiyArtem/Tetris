@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = 10;
   let nextRandom = 0;
   let savedRandom;
-  let timerId;
+  let timerId;asdsadasd
   let score = 0;
   let isPlaying = false;
   const colors = [
